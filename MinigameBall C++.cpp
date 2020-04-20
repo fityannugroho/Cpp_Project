@@ -1,6 +1,6 @@
-// Nama : FITYANDHIYA ISLAM NUGROHO
-// NIM  : 1903504
-// Game Bola dalam Tabung
+// Developed by : FITYANDHIYA ISLAM NUGROHO
+// MINIGAME BALL C++
+// topic : cpp, stack, array, game, push, pop
 
 #include <iostream>
 #include <windows.h>
@@ -33,6 +33,7 @@ struct Tube{
     string ball[volume];
 } t[nTube];
 
+
 // fungsi-fungsi
 int num_conversion(string str);       // mengubah tipe data string ke int (Terkait Validasi Inputan)
 void createTube();                    // mereset isi tabung
@@ -49,10 +50,9 @@ string isColorBall(string ball);      // menganalisa warna bola
 void addBall();                       // prosedur menambahkan bola
 bool allSorted();                     // menganalisis hasil penyusunan agar GAME OVER
 
+
 // Main
-main()
-{
-	int chs;
+main(){
 	createTube();
 	showTube();
 	cout << "\n Tekan Enter..."; getch();
@@ -66,9 +66,8 @@ main()
         cout << "\n                  1. Mulai";
         cout << "\n                                      0. Exit";
         cout << "\n  Pilih : "; cin >> str;
-        chs = num_conversion(str);
-
-        switch(chs){
+        
+        switch(num_conversion(str)){
             case 1:
                 start();
                 break;
@@ -85,8 +84,7 @@ main()
     }
 }
 
-void start()
-{
+void start(){
 	system("cls");
 	cout << "\n PETUNJUK :\n Akan ada tabung-tabung berisi bola dengan warna acak.\n Anda harus mengelompokkan bola-bola sesuai warnanya dalam satu tabung yang sama.\n";
 	cout << "\n   Warna Bola :   " << color[0].at(0) << " = Pink     " << color[1].at(0) << " = Biru     " << color[2].at(0) << " = Hijau";
@@ -107,8 +105,7 @@ void start()
 	cout << "\n " << countMoving << " kali\n";
 }
 
-void addBall()
-{
+void addBall(){
 	// No Tabung [pd array]       :  0, 1, 2 dst.
 	// KODE WARNA BOLA            :  1 = Pink   2 = Biru   3 = Hijau
 
@@ -134,7 +131,7 @@ void addBall()
 
 			// mengecek ketersediaan bola && kapasitas tabung
 			if (nColor[rnd2-1] != 0 && volExist(rnd1) > 0)
-			{
+            {
 				/* Menginputkan Bola */
 				pushTube(rnd1, codeBall(rnd2));
 			} 
@@ -144,8 +141,7 @@ void addBall()
 	}
 }
 
-int num_conversion(string str)
-{
+int num_conversion(string str){
 	int hsl_konversi, ini_angka = 0, bkn_angka = 0;
 
 	for (int i = 0; i < str.size(); ++i)
@@ -168,8 +164,7 @@ int num_conversion(string str)
     return hsl_konversi;
 }
 
-void createTube()
-{
+void createTube(){
     for (int i = 0; i < nTube; ++i){
     	for (int j = 0; j < volume; ++j)
 	    	t[i].ball[j] = "  ";           // reset ball
@@ -178,8 +173,7 @@ void createTube()
     }
 }
 
-int volExist(int n)
-{
+int volExist(int n){
 	int hsl;
 	// jika kosong
 	if (t[n].top == -1){
@@ -198,8 +192,7 @@ int volExist(int n)
 	return hsl;
 }
 
-void pushTube(int n, string ball)  // t[array]
-{
+void pushTube(int n, string ball){
     if(t[n].top != volume-1)       // jika TIDAK PENUH           
     {
         t[n].top++;
@@ -207,8 +200,7 @@ void pushTube(int n, string ball)  // t[array]
     }
 }
 
-void popTube(int n)        // t[array]
-{
+void popTube(int n){
     if(t[n].top != -1)     // jika TIDAK KOSONG
     {
     	// menghapus data tersimpan
@@ -219,8 +211,7 @@ void popTube(int n)        // t[array]
     }
 }
 
-void moveFromTo(int x, int y)
-{
+void moveFromTo(int x, int y){
 	// memindahkan bola dari tabung[x] ke tabung[y]
 	if (t[y].top < volume)
 	{
@@ -237,8 +228,7 @@ void setColor(){
 	}
 }
 
-string codeBall(int ch)
-{
+string codeBall(int ch){
 	string code;
 
 	switch(ch){
@@ -261,8 +251,7 @@ string codeBall(int ch)
     return code;
 }
 
-string isColorBall(string ball)
-{
+string isColorBall(string ball){
 	// akses kode warna
 	int x = 0;
 	if (ball.at(0) == color[x].at(0))
@@ -277,22 +266,19 @@ string isColorBall(string ball)
     return str;
 }
 
-void showTube()
-{
+void showTube(){
 	int n = nTube;
 
 	cout << endl;
 	for (int i = volume-1; i >= 0; i--){
 	    cout << "\n\t| " << t[n-4].ball[i] << " |\t| " << t[n-3].ball[i] << " |\t| " << t[n-2].ball[i] << " |\t| " << t[n-1].ball[i] << " |";
 	}
-
 	cout << "\n\t|====|\t|====|\t|====|\t|====|";
 	cout << "\n\t  1   \t  2   \t  3   \t  4   "; 
 	cout << endl;
 }
 
-void startSort()
-{
+void startSort(){
 	int popValid = 0, pushValid = 0;
 
 	while(popValid != 1 && pushValid != 1) 
@@ -346,16 +332,17 @@ void startSort()
 	}
 }
 
-bool allSorted()  // default return == false
-{
-	int matchT = 0, matchV = 0;
+bool allSorted(){
+    // default return == false
+	
 	/*  
 		Game berhasil apabila setiap tabung berisi bola dengan warna yang sama.
 		Karena itu, perlu dilakukan pengecekan jumlah warna pada tiap tabung.
 		Jika jumlah salah satu warna pada masing2 tabung == volume maksimal,
 		maka Game selesai.  
 	*/
-
+    int matchT = 0, matchV = 0;
+    
 	// Looping Tabung
 	for (int i = 0; i < nTube; ++i)
 	{
@@ -371,7 +358,6 @@ bool allSorted()  // default return == false
 				break;
 			}
 		}
-		
 		if (matchT == nTube)
 			break;
 	}
